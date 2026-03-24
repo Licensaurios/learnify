@@ -34,7 +34,7 @@ export default function LandingPage() {
             <span className="text-indigo-600 dark:text-indigo-400 block">Recursos de Aprendizaje</span>
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
-            Una plataforma colaborativa donde estudiantes y educadores comparten materiales educativos,
+            Una plataforma colaborativa donde estudiantes, adultos, jovenes y educadores comparten materiales educativos,
             tutoriales, cursos y recursos para potenciar el aprendizaje colectivo.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -77,7 +77,7 @@ export default function LandingPage() {
                 Recursos Diversos
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
-                Accede a una amplia variedad de materiales: videos, documentos, cursos completos y más.
+                Accede a una amplia variedad de materiales compartidos: videos, documentos, cursos completos y más.
               </p>
             </div>
 
@@ -91,7 +91,7 @@ export default function LandingPage() {
                 Comunidad Activa
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
-                Conecta con estudiantes y profesores de todo el mundo. Comparte y aprende juntos.
+                Conecta con personas de todo el mundo, unete a comunidades dependiendo del tipo de conocimiento que buscas adquirir. Comparte y aprende juntos.
               </p>
             </div>
 
@@ -119,7 +119,7 @@ export default function LandingPage() {
                 Acceso Gratuito
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
-                La mayoría de los recursos son gratuitos. Contribuye y accede sin restricciones.
+                Los recursos son de acceso gratuito, ya que estan basados en compartir la fuente original. Contribuye y accede sin restricciones.
               </p>
             </div>
 
@@ -133,7 +133,7 @@ export default function LandingPage() {
                 Actualizaciones Constantes
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
-                Recursos siempre actualizados con los últimos avances en educación y tecnología.
+                Recursos siempre actualizados con los últimos avances en educación y tecnología soportados por una comunidad activa y con hambre de aprender.
               </p>
             </div>
 
@@ -147,7 +147,7 @@ export default function LandingPage() {
                 Calidad Garantizada
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
-                Sistema de calificaciones y reseñas para asegurar la calidad de los recursos compartidos.
+                Sistema de calificaciones y reseñas con la vinculación de la reputación de los usuarios que comparten los recursos, esto con el fin de asegurar la calidad de los recursos compartidos.
               </p>
             </div>
           </div>
@@ -204,7 +204,7 @@ export default function LandingPage() {
           </div>
           <div className="mt-8 pt-8 border-t border-gray-800 text-center">
             <p className="text-gray-400">
-              © 2024 Learnify. Todos los derechos reservados.
+              Learnify. Aprende y disfruta del proceso 👾
             </p>
           </div>
         </div>
