@@ -9,7 +9,7 @@ export default function LandingPage() {
               <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-lg">L</span>
               </div>
-              <span className="ml-2 text-xl font-bold text-gray-900 dark:text-white">Learnify</span>
+              <span className="ml-2 text-xl font-bold text-gray-900 dark:text-white">OpenHands</span>
             </div>
             <nav className="hidden md:flex space-x-8">
               <a href="#features" className="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-indigo-400 transition-colors">
@@ -59,10 +59,10 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              ¿Por qué elegir Learnify?
+              ¿Por qué elegir OpenHands?
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Descubre las características que hacen de Learnify la mejor plataforma para compartir conocimiento.
+              Descubre las características que hacen de OpenHands la mejor plataforma para compartir conocimiento.
             </p>
           </div>
 
@@ -161,7 +161,7 @@ export default function LandingPage() {
             ¿Listo para comenzar tu viaje de aprendizaje?
           </h2>
           <p className="text-xl text-indigo-100 mb-8">
-            Únete a miles de estudiantes y educadores que ya están compartiendo conocimiento en Learnify.
+            Únete a miles de estudiantes y educadores que ya están compartiendo conocimiento en OpenHands.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
@@ -188,7 +188,7 @@ export default function LandingPage() {
               <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-lg">L</span>
               </div>
-              <span className="ml-2 text-xl font-bold text-white">Learnify</span>
+              <span className="ml-2 text-xl font-bold text-white">OpenHands</span>
             </div>
             <div className="flex space-x-6">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
@@ -204,7 +204,7 @@ export default function LandingPage() {
           </div>
           <div className="mt-8 pt-8 border-t border-gray-800 text-center">
             <p className="text-gray-400">
-              Learnify. Aprende y disfruta del proceso 👾
+              OpenHands. Aprende y disfruta del proceso 
             </p>
           </div>
         </div>

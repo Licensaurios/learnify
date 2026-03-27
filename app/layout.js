@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Learnify",
+  title: "OpenHands",
   description: "Plataforma de aprendizaje y recursos en comunidad 🦉",
 };
 
