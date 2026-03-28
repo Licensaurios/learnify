@@ -14,9 +14,9 @@ export default clerkMiddleware(async (auth, request) => {
   console.log('url:', request.url)
   console.log('isPublic:', isPublicRoute(request))
 
-  if (userId && isPublicRoute(request)) {
-    return NextResponse.redirect(new URL('/user', request.url))
-  }
+//  if (userId && isPublicRoute(request)) {
+//    return NextResponse.redirect(new URL('/user', request.url))
+//  }
 
   if (!userId && !isPublicRoute(request)) {
     return NextResponse.redirect(new URL('/landing', request.url))

@@ -3,9 +3,10 @@ import { redirect } from 'next/navigation'
 export default async function Home() {
   const { userId } = await auth()
 
-  if (userId) {
-    redirect('/user')
-  } else {
-    redirect('/landing')
-  }
+  redirect('/landing')
+//  if (userId) {
+//    //redirect('/user')
+//  } else {
+//    redirect('/landing')
+//  }
 }

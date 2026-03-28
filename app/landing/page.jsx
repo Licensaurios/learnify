@@ -1,4 +1,9 @@
-export default function LandingPage() {
+import { auth } from '@clerk/nextjs/server'
+import { UserButton } from "@clerk/nextjs";
+
+export default async function LandingPage() {
+  const { userId } = await auth()
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
       {/* Header */}
@@ -26,18 +31,25 @@ export default function LandingPage() {
               >
                 Acerca de
               </a>
-              <a
-                href="/login"
-                className="text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium transition-colors"
-              >
-                Iniciar Sesión
-              </a>
-              <a
-                href="/registro"
-                className="text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium transition-colors"
-              >
-                Registrarse
-              </a>
+              {
+                  userId ? 
+                  <UserButton />
+                  : 
+                    <>
+                        <a
+                          href="/login"
+                          className="text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium transition-colors"
+                        >
+                          Iniciar Sesión
+                        </a>
+                        <a
+                          href="/registro"
+                          className="text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium transition-colors"
+                          >
+                            Registrarse
+                          </a>
+                    </>
+              }
             </nav>
           </div>
         </div>
