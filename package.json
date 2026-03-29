@@ -6,20 +6,27 @@
     "dev": "next dev -p 8080",
     "build": "next build",
     "start": "next start -p 8080",
-    "lint": "eslint"
+    "lint": "eslint",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.0.7",
     "next": "16.2.1",
+    "prop-types": "^15.8.1",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
+    "@storybook/nextjs-vite": "^10.3.3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "25.5.0",
     "@types/react": "19.2.14",
     "eslint": "^9",
     "eslint-config-next": "16.2.1",
-    "tailwindcss": "^4"
+    "eslint-plugin-storybook": "^10.3.3",
+    "storybook": "^10.3.3",
+    "tailwindcss": "^4",
+    "vite": "^8.0.3"
   }
 }
