@@ -70,13 +70,23 @@ export default async function LandingPage() {
             recursos para potenciar el aprendizaje colectivo.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            {
+                userId ?
             <a
-              href="/login"
+              href="/user"
               className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-lg font-medium transition-colors"
             >
-              Comenzar a Aprender
+              Ir a Mi Perfil
             </a>
-            <a
+            : <a
+                  href="/login"
+                  className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-lg font-medium transition-colors"
+                >
+                  Comenzar a Aprender
+                </a>
+     
+            }
+                        <a
               href="#features"
               className="border border-gray-300 dark:border-gray-600 hover:border-indigo-600 text-gray-700 dark:text-gray-300 hover:text-indigo-600 px-8 py-3 rounded-lg font-medium transition-colors"
             >
