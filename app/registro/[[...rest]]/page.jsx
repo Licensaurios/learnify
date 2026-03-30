@@ -10,6 +10,7 @@ export default function LoginPage() {
     rootBox: "w-full",
     },
   }}
+  fallbackRedirectUrl="/landing" 
   />
   )
 }
