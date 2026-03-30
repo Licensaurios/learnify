@@ -11,6 +11,24 @@ import {
 import { useRouter } from "next/navigation";
 import "./user.css";
 
+// ─── Palette ─────────────────────────────────────────────────────────────────
+const C = {
+  orange:      "#FF6D2D",
+  orangeLight: "#FF8F5C",
+  orangeDim:   "#FFF0E9",
+  dark:        "#1A1F2E",
+  white:       "#FFFFFF",
+  offWhite:    "#F7F8FC",
+  border:      "#E8EBF4",
+  muted:       "#8B92A9",
+  text:        "#2D3452",
+  code:        "#0F1624",
+  red:         "#FF4D6D",
+  redDim:      "#FFF0F3",
+  green:       "#10B981",
+};
+
+
 // ─── Sample data ──────────────────────────────────────────────────────────────
 const POSTS = [
   {
