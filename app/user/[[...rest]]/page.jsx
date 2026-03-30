@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 import {
   Home, FolderOpen, MessageSquare, Plus, Bell, Settings,
-  Search, Star, ChevronLeft, ChevronRight, Hash, LifeBuoy,
-  ArrowUp, ArrowDown, MessageCircle, Share2, Bookmark, MoreHorizontal,
+  Search, Star, ChevronLeft, ChevronRight, Hash, LifeBuoy, MessageCircle, Share2, Bookmark, MoreHorizontal,
   TrendingUp, Link2, Terminal
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 // ─── Palette ────────────────────────────────────────────────────────────────
 const C = {
@@ -103,27 +103,22 @@ const COMMUNITIES = [
 
 // ─── Components ──────────────────────────────────────────────────────────────
 
-function VoteButton({ count }) {
-  const [vote, setVote] = useState(0);
+function LikeButton({ count }) {
+  const [liked, setLiked] = useState(false);
   return (
-    <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:2 }}>
-      <button onClick={() => setVote(v => v === 1 ? 0 : 1)}
-        style={{ background:"none", border:"none", cursor:"pointer", padding:3,
-          color: vote === 1 ? C.orange : C.muted,
-          transition:"color .15s, transform .15s",
-          transform: vote === 1 ? "scale(1.2)" : "scale(1)" }}>
-        <ArrowUp size={15} strokeWidth={2.5} />
+    <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:4 }}>
+      <button onClick={() => setLiked(v => !v)} style={{
+        background:"none", border:"none", cursor:"pointer", padding:4,
+        color: liked ? "#FF4D6D" : C.muted,
+        transition:"color .15s, transform .15s",
+        transform: liked ? "scale(1.25)" : "scale(1)",
+        fontSize: 18,
+      }}>
+        {liked ? "❤️" : "🤍"}
       </button>
-      <span style={{ fontSize:12, fontWeight:700, color: vote !== 0 ? C.orange : C.text }}>
-        {count + vote}
+      <span style={{ fontSize:12, fontWeight:700, color: liked ? "#FF4D6D" : C.text }}>
+        {count + (liked ? 1 : 0)}
       </span>
-      <button onClick={() => setVote(v => v === -1 ? 0 : -1)}
-        style={{ background:"none", border:"none", cursor:"pointer", padding:3,
-          color: vote === -1 ? "#FF6D6D" : C.muted,
-          transition:"color .15s, transform .15s",
-          transform: vote === -1 ? "scale(1.2)" : "scale(1)" }}>
-        <ArrowDown size={15} strokeWidth={2.5} />
-      </button>
     </div>
   );
 }
@@ -138,6 +133,7 @@ function Tag({ label }) {
 }
 
 function PostCard({ post }) {
+  const router = useRouter();
   const [saved, setSaved] = useState(false);
   return (
     <div style={{
@@ -174,11 +170,12 @@ function PostCard({ post }) {
           alignItems:"center", background: C.offWhite,
           borderRight:`1px solid ${C.border}`, minWidth:52,
         }}>
-          <VoteButton count={post.votes} />
+          <LikeButton count={post.votes} />
         </div>
 
         {/* Content */}
-        <div style={{ flex:1, padding:"16px 20px" }}>
+        <div style={{ flex:1, padding:"16px 20px" }} onClick={() => router.push(`/post`)}> 
+          {/* aqui poner el id del post */}
           {/* Meta */}
           <div style={{ display:"flex", alignItems:"center", gap:6, marginBottom:8, flexWrap:"wrap" }}>
             <span style={{ fontSize:12, color: C.orange, fontWeight:700 }}>{post.community}</span>
@@ -302,6 +299,8 @@ export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [activeTab, setActiveTab] = useState("For You");
   const [search, setSearch] = useState("");
+  const router = useRouter();
+  const { user } = useUser();
 
   const tabs = ["For You", "Trending Projects", "Community Feed"];
 
@@ -346,16 +345,19 @@ export default function Dashboard() {
               borderBottom:`1px solid rgba(255,255,255,.08)`,
               marginBottom:20,
             }}>
-              <div style={{
-                width:72, height:72, borderRadius:"50%",
-                background:`linear-gradient(135deg, ${C.orange}, ${C.orangeLight})`,
-                display:"flex", alignItems:"center", justifyContent:"center",
-                fontSize:28, marginBottom:10,
-                boxShadow:`0 0 0 3px ${C.dark}, 0 0 0 5px ${C.orange}`,
-              }}>👤</div>
-              <span style={{ fontWeight:700, fontSize:15, color: C.white }}>Alex R.</span>
-              <span style={{ fontSize:12, color: C.muted, marginTop:2 }}>
-                Contribution Score: <span style={{ color: C.orange, fontWeight:600 }}>1,250 XP</span>
+              <img
+                src={user?.imageUrl}
+                alt="avatar"
+                style={{
+                  width: 72,
+                  height: 72,
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                  boxShadow: `0 0 0 3px ${C.dark}, 0 0 0 5px ${C.orange}`,
+                }}
+              />
+              <span style={{ fontWeight:700, fontSize:15, color:C.white }}>
+                {user?.firstName} {user?.lastName}
               </span>
             </div>
 
@@ -481,6 +483,11 @@ export default function Dashboard() {
                 <input
                   value={search}
                   onChange={e => setSearch(e.target.value)}
+                  onKeyDown={e => {
+                    if (e.key === "Enter" && search.trim()) {
+                      router.push(`/search?q=${encodeURIComponent(search.trim())}`);
+                    }
+                  }}
                   placeholder="Search scripts, communities, or #tags (#bash, #python)..."
                   style={{
                     width:"100%", padding:"13px 16px 13px 44px",
