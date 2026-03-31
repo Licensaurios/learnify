@@ -248,9 +248,9 @@ function PostCard({ post }) {
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
 export default function Dashboard() {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isOverlay, setIsOverlay]     = useState(false);
-  const [rightOpen, setRightOpen]     = useState(true);
+  const [rightOpen, setRightOpen]     = useState(false);
   const [isRightOverlay, setIsRightOverlay] = useState(false);
   const [activeTab, setActiveTab]     = useState("For You");
   const [search, setSearch]           = useState("");
