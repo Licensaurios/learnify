@@ -2,20 +2,11 @@ import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'  // �
 import { NextResponse } from 'next/server'
 
 // 👇 muévelo ANTES de usarlo
-<<<<<<< Updated upstream
-const isPublicRoute = createRouteMatcher([
-  '/login(.*)',
-  '/search(.*)',
-  '/registro(.*)',
-  '/landing(.*)',
-])
-=======
 // const isPublicRoute = createRouteMatcher([
 //   '/login(.*)',
 //   '/registro(.*)',
 //   '/landing(.*)',
 // ])
->>>>>>> Stashed changes
 
 // rutas protegidas
 const isProtectedRoute = createRouteMatcher([ 
