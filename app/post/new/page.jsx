@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { 
@@ -9,30 +8,17 @@ import {
 } from "lucide-react";
 import styles from "./new.module.css";
 
-const USER_COMMUNITIES = ["c/Global", "c/React Hub", "c/Python"]; 
+const USER_COMMUNITIES = ["d/Linux Scripts", "d/React Hub", "d/Python"]; 
 const LANGUAGES = ["Bash", "JavaScript", "Python", "SQL", "C#", "C++", "HTML/CSS", "No code"];
 
 // ─── Componente del formulario interno (usa useSearchParams) ───
 function NewPostForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  // Estado del formulario
-  const targetCommunity = searchParams.get("community");
-  const isLocked = !!targetCommunity;
-  const [title, setTitle] = useState("");
-  // Si viene en la URL la usamos, sino agarramos la primera del usuario
-  const [community, setCommunity] = useState(targetCommunity || USER_COMMUNITIES[0]);
-  const [body, setBody] = useState("");
-  const [link, setLink] = useState("");
-  const [codeLang, setCodeLang] = useState("Bash");
-  const [codeText, setCodeText] = useState("");
-  const [tags, setTags] = useState([]);
-  const [currentTag, setCurrentTag] = useState("");
-  const [refs, setRefs] = useState([{ label: "", link: "" }]);
-
-
   
   // Leemos si la URL trae una comunidad predefinida (?community=...)
+  const targetCommunity = searchParams.get("community");
+  const isLocked = !!targetCommunity;
 
   // Si no hay comunidades y no viene una forzada, mostramos el blocker
   if (USER_COMMUNITIES.length === 0 && !targetCommunity) {
@@ -58,6 +44,17 @@ function NewPostForm() {
     );
   }
 
+  // Estado del formulario
+  const [title, setTitle] = useState("");
+  // Si viene en la URL la usamos, sino agarramos la primera del usuario
+  const [community, setCommunity] = useState(targetCommunity || USER_COMMUNITIES[0]);
+  const [body, setBody] = useState("");
+  const [codeLang, setCodeLang] = useState("Bash");
+  const [codeText, setCodeText] = useState("");
+  const [tags, setTags] = useState([]);
+  const [currentTag, setCurrentTag] = useState("");
+  const [refs, setRefs] = useState([{ label: "", link: "" }]);
+
   const handleAddTag = (e) => {
     if (e.key === "Enter" && currentTag.trim()) {
       e.preventDefault();
@@ -77,46 +74,16 @@ function NewPostForm() {
   };
   const removeRef = (index) => setRefs(refs.filter((_, i) => i !== index));
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    const user_id = "44b3b2de-ee41-41cd-8852-8379ba09dcb3"
-    const toast = await import('wc-toast')
-
-    const tags_pure = []
-    for (let tag of tags) {
-        if (tag.includes('#')) {
-            tag = tag.replaceAll('#', '')
-        }
-        tags_pure.push(tag)
-    }
     const newPostData = {
-      title, community, descripcion: body, tags: tags_pure,
+      title, community, body, tags,
       codeLang: codeLang !== "No code" ? codeLang : null,
-      codeLines: codeText.split("\n"),
-      link: link.trim() || null,
-      user_id: user_id || null,
+      rawCode: codeText,
       refs: refs.filter(r => r.label.trim() || r.link.trim()), 
     };
-    
-    console.log(newPostData)
-    const resource = await fetch(`/api/resources/`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newPostData),
-    });
-
-    if (!resource.ok) {
-        toast.error("Error al publicar. Intenta de nuevo.");
-        return;
-    }
-
-    const data = await resource.json();
-    toast.success("¡Recurso publicado con éxito!");
-    setTimeout(() => {
-        router.push(`/post/${data.id}`);
-    }, 1000);   
-
+    console.log("Insertar en BD:", newPostData);
+    alert("¡Publicación enviada! Revisa la consola.");
   };
 
   return (
@@ -130,7 +97,7 @@ function NewPostForm() {
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>Comparte tu conocimiento</h1>
           <p className={styles.heroSubtitle}>
-            Aporta scripts, configuraciones o tutoriales a tu comunidad. El código de hoy es la solución de alguien mañana.
+            Aporta scripts, configuraciones o tutoriales a tu comunidad. El código de hoy es la solución de alguien mañana.(demo)
           </p>
         </div>
       </div>
@@ -156,19 +123,6 @@ function NewPostForm() {
                 required
               />
             </div>
-            <div className={styles.inputGroup}>
-              <label>Link del recurso<span className={styles.required}>*</span></label>
-              <input 
-                type="url" 
-                placeholder="Ej. https://example.com/script.sh"
-                value={link}
-                onChange={(e) => setLink(e.target.value)}
-                className={styles.input}
-                required
-              />
-            </div>
-
-
 
             <div className={styles.inputGroup}>
               <label>Comunidad destino <span className={styles.required}>*</span></label>

@@ -17,7 +17,7 @@ import styles from "./community.module.css";
 const COMMUNITY = {
   id_comunidad:  "b70de883-14d7-4e6e-a4ab-36559a1a5897",
   nombre:        "Red team community",
-  descripcion:   "Espacio para la comunidad de seguridad para aquellos que sean de Red team.",
+  descripcion:   "Espacio para la comunidad de seguridad para aquellos que sean de Red team. (datos de prueba para la demo)",
   banner_url:    null,
   pfp_url:       null,
   fecha_creacion:"2026-03-29 22:32:34",
@@ -121,7 +121,7 @@ function PostCard({ post }) {
             <span>{post.time}</span>
           </div>
 
-          <button className={styles.postTitle} onClick={() => router.push(`/post`)}>
+          <button className={styles.postTitle} onClick={() => router.push(`/post/cd4494c0-898c-4881-9db0-deabe7607bfb`)}>
             {post.title}
           </button>
 
@@ -302,8 +302,8 @@ export default function CommunityPage() {
           </div>
 
           <div className={styles.headerActions}>
-            {[Bell, MessageSquare, Settings].map((Icon, i) => (
-              <button key={i} className={styles.iconBtn}>
+            {[Settings].map((Icon, i) => (
+              <button key={i} onClick={() => router.push("/config")} className={styles.iconBtn}>
                 <Icon size={16} />
               </button>
             ))}

@@ -85,7 +85,7 @@ const C = {
 //   },
 // ];
 
-// const TRENDING = ["#React19", "#PythonAutomation", "#DockerCompose", "#CI_CD", "#NextJS15"];
+const TRENDING = ["#linux", "#test", "#PythonAutomation", "#DockerCompose", "#CI_CD", "#NextJS15"];
 
 const RECOMMENDED_COMMUNITIES = [
   { icon: "🐍", name: "d/Python Devs", members: "12.4k" },
@@ -95,8 +95,8 @@ const RECOMMENDED_COMMUNITIES = [
 
 const NAV_ITEMS = [
   { icon: Home, label: "Home", badge: null },
-  { icon: FolderOpen, label: "My Projects", badge: null },
-  { icon: MessageSquare, label: "Messages", badge: 3 },
+  { icon: FolderOpen, label: "Mis publicaciones", badge: null },
+  // { icon: MessageSquare, label: "Messages", badge: 3 }, para despues
 ];
 
 const COMMUNITIES = [
@@ -330,7 +330,7 @@ export default function Dashboard() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const tabs = ["For You", "Trending Projects", "Community Feed"];
+  const tabs = ["For You"];
 
   // Lógica para unirse a una comunidad (puedes adaptarlo luego a tu base de datos)
   const handleJoinCommunity = (communityName) => {
@@ -363,14 +363,17 @@ export default function Dashboard() {
 
           <nav className="sidebar__nav">
             {NAV_ITEMS.map(({ icon: Icon, label, badge }) => (
-              <button key={label} className={`nav-item ${label === "Home" ? "nav-item--active" : ""}`}>
+              <button onClick={() => router.push("/usuario")} key={label} className={`nav-item ${label === "Home" ? "nav-item--active" : ""}`}>
                 <Icon size={18} />
                 {label}
                 {badge && <span className="nav-item__badge">{badge}</span>}
               </button>
             ))}
             <button className="btn-new-project" onClick={() => router.push("/post/new")}>
-              <Plus size={16} /> Nuevo Recurso 
+              <Plus size={16} /> Nueva Publicacion
+            </button>
+            <button className="btn-new-project" onClick={() => router.push("/community/new")}>
+              <Plus size={16} /> Nueva Comunidad
             </button>
           </nav>
 
@@ -395,8 +398,8 @@ export default function Dashboard() {
           </button>
           <h1 className="topbar__title">OpenHands</h1>
           <div className="topbar__actions">
-            {[Bell, MessageSquare, Settings].map((Icon, i) => (
-              <button key={i} className="topbar__icon-btn"><Icon size={16} /></button>
+            {[Settings].map((Icon, i) => (
+              <button onClick={() => router.push("/config")} key={i} className="topbar__icon-btn"><Icon size={16} /></button>
             ))}
             <UserButton afterSignOutUrl="/" />
           </div>
@@ -464,15 +467,15 @@ export default function Dashboard() {
           <div className={`right-sidebar ${rightOpen ? "right-sidebar--open" : "right-sidebar--closed"} ${isRightOverlay ? "right-sidebar--overlay" : ""}`}>
 
             {/* Trending */}
-            <div className="widget widget--trending">
+             <div className="widget widget--trending">
               <div className="widget__header">
                 <TrendingUp size={16} color="#FF6D2D" />
                 <span className="widget__title">Trending Topics</span>
               </div>
               <div className="trending-tags">
-                {trendsData.map((t) => (
-                  <button
-                    key={t}
+                {TRENDING.map((t) => (
+                  <button 
+                    key={t} 
                     className="trending-tag"
                     onClick={() => router.push(`/search?q=${encodeURIComponent(t)}`)}
                   >

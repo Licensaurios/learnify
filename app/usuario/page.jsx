@@ -12,14 +12,14 @@ import {
   PenSquare, Camera, Shield, Lock
 } from "lucide-react";
 import styles from "./usuario.module.css";
-import "../globals.css"; // Asegúrate de tenerlo importado en layout o aquí
+import "../globals.css"; 
 
 // ─── Mock data ────────────────────────────────────────────────────────────────
 const PROFILE_USER = {
   id:        "u_sarahcode",
   name:      "Sarah Code",
-  username:  "SarahCode",
-  bio:       "Sysadmin & DevOps enthusiast. Comparto scripts y configs que uso en producción. Linux, Nginx, Docker.",
+  username:  "user",
+  bio:       "Sysadmin & DevOps enthusiast. Comparto scripts y configs que uso en producción. Linux, Nginx, Docker. (datos de prueba para la demo)",
   location:  "Ciudad de México",
   joined:    "Marzo 2025",
   xp:        3420,
@@ -106,7 +106,7 @@ function PostCard({ post, isOwn, onEdit, onDelete }) {
         </div>
 
         {/* Title */}
-        <h3 onClick={()=>router.push(`/post/${post.id}`)} className={styles.postTitle}>
+        <h3 onClick={()=>router.push(`/post/cd4494c0-898c-4881-9db0-deabe7607bfb`)} className={styles.postTitle}>
           {post.title}
         </h3>
 
@@ -266,8 +266,8 @@ export default function UserProfilePage() {
             {isOwnProfile ? "Mi perfil" : `Perfil de ${profile.username}`}
           </h1>
           <div className={styles.topbarActions}>
-            {[Bell, MessageSquare, Settings].map((Icon,i)=>(
-              <button key={i} className={styles.iconBtn}>
+            {[Settings].map((Icon,i)=>(
+              <button key={i} onClick={() => router.push("/config")} className={styles.iconBtn}>
                 <Icon size={16}/>
               </button>
             ))}
