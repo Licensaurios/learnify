@@ -301,8 +301,8 @@ export default function PostPage() {
         </div>
 
         <div className={styles.topbarActions}>
-          {[Bell, MessageSquare, Settings].map((Icon, i) => (
-            <button key={i} className={styles.iconBtn}>
+          {[Settings].map((Icon, i) => (
+            <button key={i} onClick={() => router.push("/config")} className={styles.iconBtn}>
               <Icon size={16} />
             </button>
           ))}

@@ -11,7 +11,6 @@ import styles from "./community.module.css";
 export default function NewCommunityPage() {
   const router = useRouter();
 
-  // Estado del formulario basado en tu API
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [pfpUrl, setPfpUrl] = useState("");
@@ -25,7 +24,6 @@ export default function NewCommunityPage() {
     if (e.key === "Enter" && currentTag.trim()) {
       e.preventDefault();
       let newTag = currentTag.trim().toLowerCase();
-      // Quitamos el # si el usuario lo pone, ya que en tu JSON de ejemplo ("uas", "estudio") van limpios
       if (newTag.startsWith("#")) newTag = newTag.substring(1);
       
       if (!tags.includes(newTag)) setTags([...tags, newTag]);
@@ -67,7 +65,7 @@ export default function NewCommunityPage() {
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>Crea un nuevo espacio</h1>
           <p className={styles.heroSubtitle}>
-            Reúne a personas con intereses similares. Las mejores herramientas y scripts nacen de la colaboración en equipo.
+            Reúne a personas con intereses similares. Las mejores herramientas y scripts nacen de la colaboración en equipo.(demo)
           </p>
         </div>
       </div>
@@ -148,7 +146,7 @@ export default function NewCommunityPage() {
             </div>
           </section>
 
-          {/* SECCIÓN 3: Tags */}
+          {/* Tags */}
           <section className={styles.card}>
             <div className={styles.cardHeader}>
               <div className={styles.iconWrap}><Hash size={18} /></div>

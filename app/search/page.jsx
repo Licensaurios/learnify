@@ -129,7 +129,7 @@ function PostCard({ post, query }) {
             <span className={styles.metaText}>{post.time}</span>
           </div>
 
-          <h3 className={styles.postTitle} onClick={() => router.push(`/post`)}>
+          <h3 className={styles.postTitle} onClick={() => router.push(`/post/cd4494c0-898c-4881-9db0-deabe7607bfb`)}>
             {highlightTitle(post.title)}
           </h3>
 
@@ -262,10 +262,10 @@ function SearchContent() {
           <button onClick={() => router.push("/user")} className={styles.backBtn}>
             OpenHands <ChevronLeft size={15} />
           </button>
-          <h1 className={styles.headerTitle}>Búsqueda</h1>
+          <h1 className={styles.headerTitle}>Búsqueda (demo)</h1>
           <div className={styles.headerActions}>
-            {[Bell, MessageSquare, Settings].map((Icon, i) => (
-              <button key={i} className={styles.iconBtn}>
+            {[Settings].map((Icon, i) => (
+              <button key={i} onClick={() => router.push("/config")} className={styles.iconBtn}>
                 <Icon size={16} />
               </button>
             ))}

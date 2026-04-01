@@ -1,5 +1,6 @@
 // app/layout.jsx
 import { ClerkProvider } from "@clerk/nextjs";
+import I18nProvider from "./i18nprovider";
 import "./globals.css";
 export default function RootLayout({ children }) {
   //no usado mientras(no valo mdre para los disseños)
