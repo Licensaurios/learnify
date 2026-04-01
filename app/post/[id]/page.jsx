@@ -1,46 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useAuthGate } from "../hooks/useAuthGate";
+import { useState, useEffect } from "react";
+import { useRouter, useParams } from "next/navigation";
+import { useAuthGate } from "../../hooks/useAuthGate";
 import { UserButton, useUser } from "@clerk/nextjs";
 import {
   ChevronLeft, Bell, MessageSquare, Settings,
   Star, Link2, Bookmark, Share2, Flag, Heart,
   MessageCircle, ChevronDown, ChevronUp, Send, MoreHorizontal
 } from "lucide-react";
-import styles from "./post.module.css";
-import "../globals.css"; 
-
-// ─── Mock post data ───────────────────────────────────────────────────────────
-const POST = {
-  id: 1,
-  title: "Automated Nginx + UFW Firewall Config [Ubuntu 24.04]",
-  author: { name: "SarahCode", avatar: null, initials: "SC", xp: 3420, community: "d/Linux Scripts" },
-  time: "3h ago",
-  tags: ["#linux", "#nginx", "#bash", "#ubuntu"],
-  rating: 4.9,
-  ratingCount: 28,
-  likes: 248,
-  saves: 47,
-  community: "d/Linux Scripts",
-  body: `Este script automatiza la configuración completa de Nginx junto con UFW (Uncomplicated Firewall) en Ubuntu 24.04. Ideal para servidores de producción que necesitan un setup rápido y seguro.\n\nEl script configura reglas básicas de firewall, permite tráfico HTTP/HTTPS, y genera una configuración base de Nginx lista para producción. También incluye SSL básico y headers de seguridad recomendados.`,
-  codeLines: [
-    { text: "$ bash",                                  color: "var(--orange)"  },
-    { text: "#import /u/bain",                         color: "#FF6D6D" },
-    { text: "automated Nginx + UFW Firewall Config",   color: "#6EE7B7" },
-    { text: "automated Nginx + UFW Firewall",          color: "#6EE7B7" },
-    { text: "# Habilitar UFW",                         color: "var(--muted)"   },
-    { text: "sudo ufw enable",                         color: "#93C5FD" },
-    { text: "sudo ufw allow 'Nginx Full'",             color: "#93C5FD" },
-    { text: "sudo systemctl enable nginx",             color: "#93C5FD" },
-  ],
-  codeLang: "Bash",
-  refs: [
-    { label: "'Basic Nginx Setup'", sub: "(u/DevMike)"    },
-    { label: "'UFW Ruleset'",       sub: "(u/SysAdmin01)" },
-  ],
-};
+import styles from "../post.module.css";
+import "../../globals.css";
 
 // ─── Mock comments ────────────────────────────────────────────────────────────
 const INITIAL_COMMENTS = [
@@ -165,7 +135,7 @@ function CommentNode({ comment, depth = 0, onReply }) {
             <div className={styles.commentMetaWrapper}>
               <div className={styles.commentMeta}>
                 <span className={styles.commentAuthor}>{comment.author.name}</span>
-                <span className={styles.xpBadge}>{comment.author.xp.toLocaleString()} XP</span>
+                {/*<span className={styles.xpBadge}>{comment.author.xp.toLocaleString()} XP</span>*/}
                 <span className={styles.timeText}>{comment.time}</span>
                 {comment.rating && (
                   <div className={styles.commentRating}>
@@ -266,6 +236,28 @@ export default function PostPage() {
   const [newRating,   setNewRating]   = useState(0);
   const [sortComments,setSortComments]= useState("Destacados");
 
+  const { id } = useParams();
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const res = await fetch(`/api/resources/${id}`);
+        if (!res.ok) throw new Error('Failed to fetch post');
+        const data = await res.json();
+        setPost(data);
+        console.log(data)
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    if (id) fetchPost();
+  }, [id]);
+
   const submitComment = () => {
     if (!newComment.trim()) return;
     const c = {
@@ -287,8 +279,12 @@ export default function PostPage() {
     setNewRating(0);
   };
 
-  const avgRating = POST.rating;
-  const totalRating = POST.ratingCount;
+  const avgRating = post?.rating || 0;
+  const totalRating = post?.ratingCount || 0;
+
+  if (loading) return <div className={styles.loading}>Cargando...</div>;
+  if (error) return <div className={styles.error}>Error: {error}</div>;
+  if (!post) return <div className={styles.noPost}>No se encontró el post</div>;
 
   return (
     <div className={styles.pageWrapper}>
@@ -300,8 +296,8 @@ export default function PostPage() {
         </button> 
 
         <div className={styles.topbarCenter}>
-          <span className={styles.communityName}>{POST.community}</span>
-          <h1 className={styles.topbarTitle}>{POST.title}</h1>
+          <span className={styles.communityName}>{post.community}</span>
+          <h1 className={styles.topbarTitle}>{post.title}</h1>
         </div>
 
         <div className={styles.topbarActions}>
@@ -323,18 +319,18 @@ export default function PostPage() {
           <div className={styles.featuredStrip}>
             <Star size={12} fill="#fff" color="#fff" />
             <span className={styles.featuredText}>FEATURED PROJECT</span>
-            <span className={styles.featuredCommunity}>{POST.community}</span>
+            <span className={styles.featuredCommunity}>{post.community}</span>
           </div>
 
           <div className={styles.postCardBody}>
             {/* Author row */}
             <div className={styles.authorRow}>
-              <Avatar initials={POST.author.initials} size={44} />
+              <Avatar initials={post.author.initials} size={44} />
               <div className={styles.authorInfo}>
                 <div className={styles.authorMeta}>
-                  <span className={styles.authorName}>{POST.author.name}</span>
-                  <span className={styles.xpBadge}>{POST.author.xp.toLocaleString()} XP</span>
-                  <span className={styles.timeText}>{POST.time}</span>
+                  <span className={styles.authorName}>{post.author.name}</span>
+                  {/*<span className={styles.xpBadge}>{post.author.xp.toLocaleString()} XP</span>*/}
+                  <span className={styles.timeText}>{post.time}</span>
                 </div>
                 {/* Rating summary */}
                 <div className={styles.ratingSummary}>
@@ -349,12 +345,18 @@ export default function PostPage() {
             </div>
 
             {/* Title */}
-            <h2 className={styles.postTitle}>{POST.title}</h2>
+            <h2 className={styles.postTitle}>{post.title}</h2>
 
             {/* Body text */}
-            <p className={styles.postBody}>{POST.body}</p>
+            <p className={styles.postBody}>{post.body}</p>
+
+            
+            <a href={post.link} className={styles.postBody} target="_blank" rel="noopener noreferrer">
+              {post.link}
+            </a>
 
             {/* Code block */}
+            {(post.hasCode && post.codeLines.length > 0) && (
             <div className={styles.codeBlock}>
               <div className={styles.codeHeader}>
                 <div className={styles.macButtons}>
@@ -362,14 +364,15 @@ export default function PostPage() {
                   <div style={{ background: "#FFBD2E" }} />
                   <div style={{ background: "#28C840" }} />
                 </div>
-                <span className={styles.codeLang}>{POST.codeLang}</span>
+                <span className={styles.codeLang}>{post.codeLang}</span>
               </div>
-              {POST.codeLines.map((l, i) => (
-                <div key={i} className={styles.codeLine} style={{ color: l.color }}>
-                  {l.text}
+              {post.codeLines.map((l, i) => (
+                <div key={i} className={styles.codeLine} style={{ color: '#fff' }}>
+                  {l}
                 </div>
               ))}
             </div>
+            )}
 
             {/* References */}
             <div className={styles.refsSection}>
@@ -378,7 +381,7 @@ export default function PostPage() {
                 <span>Referencias</span>
               </div>
               <div className={styles.refsGrid}>
-                {POST.refs.map((r, i) => (
+                {post.refs.map((r, i) => (
                   <div key={i} className={styles.refCard}>
                     <Link2 size={14} color="var(--muted)" />
                     <div>
@@ -392,7 +395,7 @@ export default function PostPage() {
 
             {/* Tags */}
             <div className={styles.tagsRow}>
-              {POST.tags.map(t => (
+              {post.tags.map(t => (
                 <span key={t} className={styles.tag}>{t}</span>
               ))}
             </div>
@@ -404,7 +407,7 @@ export default function PostPage() {
                 className={`${styles.actionMainBtn} ${styles.likeBtn} ${liked ? styles.likeBtnActive : ""}`}
               >
                 <Heart size={15} fill={liked ? "var(--red)" : "none"} />
-                {POST.likes + (liked ? 1 : 0)}
+                {post.likes ?? 0 + (liked ? 1 : 0)}
               </button>
 
               <button className={`${styles.actionMainBtn} ${styles.commentBtn}`}>

@@ -158,7 +158,7 @@ function PostCard({ post }) {
             </div>
           </div>
 
-          <h3 className="post-card__title" onClick={() => router.push(`/post`)}>
+          <h3 className="post-card__title" onClick={() => router.push(`/post/${post.id}`)}>
             {post.title}
           </h3>
 
@@ -219,7 +219,7 @@ function PostCard({ post }) {
 
           <div className="post-card__actions">
             {[
-              { icon: MessageCircle, label: `${post.comments} Comments` },
+              { icon: MessageCircle, label: `${post.comments ?? 0} Comments` },
               { icon: Share2, label: "Share" },
             ].map(({ icon: Icon, label }) => (
               <button key={label} className="action-btn">
@@ -265,9 +265,8 @@ export default function Dashboard() {
   async function loaduserdata() {
     try {
       setLoadingTrends(true);
-      const trends = await fetch(`/api/trending/`);
-      const trendsData = await trends.json();
-      setUserCommunitys(trendsData);
+    ////  const trendsData = await trends.json();
+    //  setUserCommunitys(trendsData);
     } catch (e) {
       console.log("errores: ", e);
     } finally {
@@ -371,7 +370,7 @@ export default function Dashboard() {
               </button>
             ))}
             <button className="btn-new-project" onClick={() => router.push("/post/new")}>
-              <Plus size={16} /> New Project
+              <Plus size={16} /> Nuevo Recurso 
             </button>
           </nav>
 
