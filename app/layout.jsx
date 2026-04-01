@@ -56,7 +56,10 @@ export default function RootLayout({ children }) {
             <meta property="og:url" content="https://openhands.space" />
 
         </head>
-        <body>{children}</body>
+        <body>
+            <wc-toast></wc-toast>
+            {children}
+        </body>
       </html>
     </ClerkProvider>
   );
