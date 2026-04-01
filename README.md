@@ -18,7 +18,7 @@
 
 ## 📖 ¿Qué es OpenHands?
 
-**OpenHands** es una plataforma colaborativa de aprendizaje diseñada para estudiantes, jóvenes y educadores que desean compartir y descubrir materiales educativos de calidad. Aquí, el conocimiento no tiene fronteras: cualquier persona puede contribuir con scripts, tutoriales, cursos completos y mucho más, fomentando un ecosistema de aprendizaje colectivo, abierto y en constante crecimiento.
+**OpenHands** es una plataforma colaborativa de aprendizaje diseñada para estudiantes, educadores y autodidactas que desean compartir y descubrir materiales educativos de calidad. Aquí, el conocimiento no tiene fronteras: cualquier persona puede contribuir con scripts, tutoriales, cursos completos y mucho más, fomentando un ecosistema de aprendizaje colectivo, abierto y en constante crecimiento.
 
 ---
 
