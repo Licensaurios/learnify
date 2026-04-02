@@ -1,6 +1,8 @@
 // app/layout.jsx
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
+import ToastProvider from "./components/ToastProvider";
+
 export default function RootLayout({ children }) {
   //no usado mientras(no valo mdre para los disseños)
   const clerkAparrence = {
@@ -57,7 +59,7 @@ export default function RootLayout({ children }) {
 
         </head>
         <body>
-            <wc-toast></wc-toast>
+            <ToastProvider />
             {children}
         </body>
       </html>

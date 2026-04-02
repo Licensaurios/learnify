@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { 
@@ -79,9 +78,9 @@ function NewPostForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const { toast } = await import('wc-toast')
 
     const user_id = "44b3b2de-ee41-41cd-8852-8379ba09dcb3"
-    const toast = await import('wc-toast')
 
     const tags_pure = []
     for (let tag of tags) {
@@ -113,9 +112,7 @@ function NewPostForm() {
 
     const data = await resource.json();
     toast.success("¡Recurso publicado con éxito!");
-    setTimeout(() => {
-        router.push(`/post/${data.id}`);
-    }, 1000);   
+    router.push(`/post/${data.id}`);
 
   };
 
