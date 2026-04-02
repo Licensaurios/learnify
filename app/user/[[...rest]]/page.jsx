@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import "./user.css";
+import { PostCardSkeleton } from "../skeleton";
 
 // ─── Palette ─────────────────────────────────────────────────────────────────
 const C = {
@@ -451,7 +452,18 @@ export default function Dashboard() {
                 ))}
               </div>
 
-              {posts.map((post) => <PostCard key={post.id} post={post} />)}
+              {loading ? (
+                <>
+                    {[...Array(5)].map((_, i) => (
+                        <PostCardSkeleton key={i} />
+                    ))} 
+                </>
+              ) :
+              <>
+                 {posts.map((post) => <PostCard key={post.id} post={post} />)}
+              </>
+            }
+
             </div>
 
             {/* FAB */}
