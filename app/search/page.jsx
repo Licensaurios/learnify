@@ -471,9 +471,9 @@ function SearchContent() {
                             ))} 
                         </>
                     :
-                    query !== undefined
+                    query !== undefined && results.length > 0
                       ? 
-                      results.length > 0 
+                      results.length > 0  
                           ?
                             results.map(post => <PostCard key={post.id} post={post} query={query} />)
                           :
